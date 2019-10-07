@@ -69,10 +69,6 @@ class MyGame(arcade.Window):
         # Level
         self.level = 1
 
-        # Load sounds
-        self.collect_coin_sound = arcade.load_sound("sounds/coin1.wav")
-        self.jump_sound = arcade.load_sound("sounds/jump1.wav")
-        self.game_over = arcade.load_sound("sounds/gameover1.wav")
 
     def setup(self, level):
         """ Set up the game here. Call this function to restart the game. """
@@ -181,7 +177,7 @@ class MyGame(arcade.Window):
         if key == arcade.key.UP or key == arcade.key.W:
             if self.physics_engine.can_jump():
                 self.player_sprite.change_y = PLAYER_JUMP_SPEED
-                arcade.play_sound(self.jump_sound)
+
         elif key == arcade.key.LEFT or key == arcade.key.A:
             self.player_sprite.change_x = -PLAYER_MOVEMENT_SPEED
         elif key == arcade.key.RIGHT or key == arcade.key.D:
@@ -210,8 +206,7 @@ class MyGame(arcade.Window):
         for coin in coin_hit_list:
             # Remove the coin
             coin.remove_from_sprite_lists()
-            # Play a sound
-            arcade.play_sound(self.collect_coin_sound)
+
             # Add one to the score
             self.score += 1
 
@@ -227,7 +222,7 @@ class MyGame(arcade.Window):
             self.view_left = 0
             self.view_bottom = 0
             changed_viewport = True
-            arcade.play_sound(self.game_over)
+
 
         # Did the player touch something they should not?
         if arcade.check_for_collision_with_list(self.player_sprite,
@@ -241,7 +236,7 @@ class MyGame(arcade.Window):
             self.view_left = 0
             self.view_bottom = 0
             changed_viewport = True
-            arcade.play_sound(self.game_over)
+
 
         # See if the user got to the end of the level
         if self.player_sprite.center_x >= self.end_of_map:
